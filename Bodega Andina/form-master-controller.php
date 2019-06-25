@@ -70,6 +70,9 @@
     }
 
 
+    // Validacion de passworld
+
+
     if ( empty($password) ) {
 			$errors["password"] = "El campo password es obligatorio";
 		} elseif (strlen($password)<5) {

@@ -26,7 +26,7 @@
       <div class="preguntas-body">
         <h2>Nuestros Productos</h2>
 
-       <div class="preguntas-pedido">
+       <div class="preguntas-pedido ventanaProducto">
          <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
          <h3>Vino ....</h3>
          <p>Lorem ipsum dolor sit amet, consectetur</p>

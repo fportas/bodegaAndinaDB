@@ -304,7 +304,7 @@
 
   // Función para traer a 1 usuario por email
   /*
-    Recibe como parámetro el email que quiero buscar
+    Recibe como parámetro el email que quiero buscar en usuarios
   */
   function getUserByEmail($email){
     // Obtengo a todos los usuarios

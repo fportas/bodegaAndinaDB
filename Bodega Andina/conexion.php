@@ -1,6 +1,6 @@
 <?php
 
-  // Opcion 1
+  // Opcion 1 como lo mostraron en clase
 
   // $dsn = "mysql:host=localhost;dbname=bodegaAndina;port=3306";
   // $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
@@ -8,7 +8,7 @@
   // $base = new PDO($dsn, 'root', '', $opt); //se conecta, talvez
   //
 
-  // Opcion 2
+  // Opcion 2 como el video
 
   $dsn = "mysql:dbname=bodegaAndina;host=127.0.0.1;port=3306";
   $usuario = "root";
@@ -16,7 +16,7 @@
 
   $baseDeDatos = new PDO($dsn, $usuario, $pass);
 
-  // Prueba de la conec 
+  // Prueba de la conec
   // try {
   //
   //   $dsn = "mysql:dbname=bodegaAndina;host=127.0.0.1;port=3306";

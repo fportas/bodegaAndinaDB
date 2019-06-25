@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<?php require_once 'form-master-controller.php'; ?>
+<?php require_once 'form-master-controller.php';
+require_once 'conexion.php'; 
+
+
+
+?>
+
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/stylesf.css">

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-06-2019 a las 20:32:14
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.3
+-- Tiempo de generación: 28-06-2019 a las 22:07:37
+-- Versión del servidor: 5.7.26-0ubuntu0.18.10.1
+-- Versión de PHP: 7.2.19-0ubuntu0.18.10.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bodegaAndina`
 --
+CREATE DATABASE IF NOT EXISTS `bodegaAndina` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `bodegaAndina`;
 
 -- --------------------------------------------------------
 
@@ -34,8 +36,17 @@ CREATE TABLE `registro` (
   `user` varchar(100) NOT NULL,
   `country` tinytext NOT NULL,
   `email` varchar(100) NOT NULL,
-  `avatar` varchar(100) NOT NULL
+  `avatar` varchar(100) NOT NULL,
+  `password` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `registro`
+--
+
+INSERT INTO `registro` (`id`, `name`, `user`, `country`, `email`, `avatar`, `password`) VALUES
+(1, 'Javier Herrera', 'herrerajavier', 'cl', 'herrerajavier@mail.com', '', ''),
+(2, 'onnig', 'onnig', 'ar', 'onnig@gmail.com', 'img_andina_5d16b79e4b625.png', '$2y$10$97i76dciJO55PNxpoWhqXO15i2SPC1c7JWgeYEz.Mp3WS.Iph1wJS');
 
 --
 -- Índices para tablas volcadas
@@ -57,7 +68,7 @@ ALTER TABLE `registro`
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

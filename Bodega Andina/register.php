@@ -2,21 +2,12 @@
 <html lang="en" dir="ltr">
 <?php
   require_once "form-master-controller.php";
-  require_once "conexion.php";
+  // require_once "conexion.php";
 
   if (isLogged()) {
     header("location: perfil-de-usuario.php");
     exit;
   }
-
-
-  try {
-    $consulta = $base->query("SELECT * from registro");
-  } catch (PDOException $error) {
-    die('Falló la consulta a la base de datos');
-  }
-
-  $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
 
   $countries = [
@@ -63,13 +54,14 @@
     if ( !$errorsInRegister ) {
 
 			// Guardo la imagen y obtengo el nombre aleatorio creado
-			$imgName = saveImage();
+			// $imgName = saveImage();
 
 			// Creo en $_POST una posición "avatar" para guardar el nombre de la imagen
-			$_POST['avatar'] = $imgName;
+			// $_POST['avatar'] = $imgName;
 
 			// Guardo al usuario en el archivo JSON, y me devuelve al usuario que guardó en array
-			$theUser = saveUser();
+			// $theUser = saveUser(); este se reemplaza
+      $theUser = saveUserBD();
 
 			// Al momento en que se registar vamos a mantener la sesión abierta
 			setcookie('userLoged', $theUser['email'], time() + 143000);

@@ -2,6 +2,8 @@
 
   session_start();
 
+  require_once "conexion.php";
+
   define('ALLOWED_IMAGE_FORMATS', ['jpg', 'jpeg', 'png', 'gif']);
 	define('IMAGE_PATH', dirname(__FILE__) . '/data/avatars/');
 	define('USERS_JSON_PATH', dirname(__FILE__) . '/data/users.json');
@@ -14,6 +16,14 @@
 		// Guardo en sesión al usuario que busqué anteiormente
 		$_SESSION['userLoged'] = $theUser;
 	}
+
+  // try {
+  //   $consulta = $baseDeDatos->query("SELECT * from registro");
+  //   $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+  // } catch (PDOException $error) {
+  //   die('Falló la consulta a la base de datos');
+  //
+  // }
 
 
   // Para los errores en la registración
@@ -124,23 +134,23 @@
 	}
 
 
-  // Función para generar un ID
-  function generateID() {
-    // Traigo a todos los usuarios
-    $allUsers = getAllUsers();
-
-    // para que no pinche si no hay ningun usuario. O puedo dejarle un primer
-    // usuario para que no pinche
-    if ( count($allUsers) == 0 ) {
-      return 1;
-    }
-
-    // da la ultima pocisión disponible
-    $lastUser = array_pop($allUsers);
-
-    // retorna el id del nuevo usuario
-    return $lastUser['id'] + 1;
-  }
+  // Función para generar un ID ESTE MURIO PORQUE LO GENERA SOLO LA TABLA
+  // function generateID() {
+  //   // Traigo a todos los usuarios
+  //   $allUsers = getAllUsers();
+  //
+  //   // para que no pinche si no hay ningun usuario. O puedo dejarle un primer
+  //   // usuario para que no pinche
+  //   if ( count($allUsers) == 0 ) {
+  //     return 1;
+  //   }
+  //
+  //   // da la ultima pocisión disponible
+  //   $lastUser = array_pop($allUsers);
+  //
+  //   // retorna el id del nuevo usuario
+  //   return $lastUser['id'] + 1;
+  // }
 
 
   // Trae todos los JSON
@@ -158,36 +168,77 @@
 
   // Este es el que debería desaparecer?
 
+
+
   // Función para guardar al usuario
-  function saveUser() {
-    // Trimeamos los valores que vinieron por $_POST
+  // function saveUser() {
+  //   // Trimeamos los valores que vinieron por $_POST
+  //   $_POST['name'] = trim($_POST['name']);
+  //   $_POST['email'] = trim($_POST['email']);
+  //
+  //   // Hasheo el password del usuario
+  //   $_POST['password'] = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+  //
+  //   // Genero el ID y lo guardo en una posición de $_POST llamada "id"
+  //   $_POST['id'] = generateID();
+  //
+  //   // Elimino de $_POST la posición "rePassword" ya que no me interesa guardar este dato en mi DB (Data Base)
+  //   unset($_POST['rePassword']);
+  //
+  //   // En la variable $finalUser guardo el array de $_POST
+  //   $finalUser = $_POST;
+  //
+  //   // Obtengo todos los usuarios
+  //   $allUsers = getAllUsers();
+  //
+  //   // En la última posición del array de usuarios, inserto al usuario nuevo
+  //   $allUsers[] = $finalUser;
+  //
+  //   // Guardo todos los usuarios de vuelta en el JSON
+  //   file_put_contents(USERS_JSON_PATH, json_encode($allUsers));
+  //
+  //   // Retorno al usuario que acabo de guardar para poder tenerlo listo y loguearlo
+  //   return $finalUser;
+  // }
+
+
+  // Nuevo save user con la base de $baseDeDatos
+
+  function saveUserBD() {
+  // Trimeamos los valores que vinieron por $_POST
     $_POST['name'] = trim($_POST['name']);
     $_POST['email'] = trim($_POST['email']);
+    $_POST['user'] = trim($_POST['user']);
 
     // Hasheo el password del usuario
     $_POST['password'] = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
-    // Genero el ID y lo guardo en una posición de $_POST llamada "id"
-    $_POST['id'] = generateID();
+    $imgName = saveImage();
 
-    // Elimino de $_POST la posición "rePassword" ya que no me interesa guardar este dato en mi DB (Data Base)
-    unset($_POST['rePassword']);
+    //
 
-    // En la variable $finalUser guardo el array de $_POST
-    $finalUser = $_POST;
+    try {
+      // require_once "conexion.php";
+      global $baseDeDatos;
+      $sql = "insert into registro (name, user, country, email, avatar, password) values (?, ?, ?, ?, ?, ?)";
+      $consulta = $baseDeDatos->prepare($sql);
+      $consulta->execute([$_POST['name'], $_POST['user'], $_POST['country'], $_POST['email'], $imgName, $_POST['password']]);
+    } catch (PDOException $error) {
+      echo ("LA RE CAGASTE");
 
-    // Obtengo todos los usuarios
-    $allUsers = getAllUsers();
+    }
 
-    // En la última posición del array de usuarios, inserto al usuario nuevo
-    $allUsers[] = $finalUser;
 
-    // Guardo todos los usuarios de vuelta en el JSON
-    file_put_contents(USERS_JSON_PATH, json_encode($allUsers));
 
-    // Retorno al usuario que acabo de guardar para poder tenerlo listo y loguearlo
-    return $finalUser;
   }
+
+
+
+
+
+
+
+
 
 
   // Función para loguear al usuario

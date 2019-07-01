@@ -77,7 +77,7 @@ img{
 }
 
 .preguntas-body h2{
-  margin: 3%;
+  margin: 5%;
 }
 
 .preguntas-pedido img{
@@ -139,6 +139,8 @@ img{
 
   .nav-preguntas{
     margin-top: 3%;
+    margin-bottom: 5%;
+    clear: both;
   }
 
 	.linea-degrade-preguntas{
@@ -171,9 +173,14 @@ img{
   }
 
   .preguntas-body{
+    margin-top: 40px;
 		margin-left: 5%;
 		margin-right: 5%;
     display: flex;
+  }
+
+  .titulo-productos{
+    margin: 5%;
   }
 
 	.preguntas-body2{
@@ -185,6 +192,28 @@ img{
   .preguntas-pedido, .preguntas-cambios, .preguntas-pagos, .preguntas-devolucion, .preguntas-inconvenientes, .preguntas-cuenta{
     margin: 2%;
     padding: 2%;
+  }
+
+  .container-productos{
+    background-image: url("../images/bg-productos.png");
+  }
+
+  .preguntas-body h2{
+    margin: 5%;
+    margin-top: 20px;
+  }
+
+  .preguntas-pedido img{
+    margin: auto;
+  }
+
+  .botella{
+    max-width: 70px;
+  }
+
+  .ventanaProducto{
+    text-align: center;
+    align-items: center;
   }
 
 }

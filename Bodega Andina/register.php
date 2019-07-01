@@ -112,6 +112,11 @@
 
       </header>
 
+      <form class="" action="index.html" method="post">
+        <input type="text" name="" value="">
+
+      </form>
+
 
 
       <section class="bg-login">
@@ -122,7 +127,9 @@
 
         <article class="form">
           <h2 class="titulo-registro">Ingresa tus datos</h2>
-          <form class="text" method="post" enctype="multipart/form-data" action="registrarUsuario.php">
+          <!-- <form class="text" method="post" enctype="multipart/form-data" action="registrarUsuario.php"> -->
+          <!-- <form class="text" method="post" enctype="multipart/form-data" action="perfil-de-usuario.php"> -->
+          <form class="text" method="post" enctype="multipart/form-data">
 
 
             <!-- Nombre  -->
@@ -136,7 +143,6 @@
             <div class="showError">
               <?= isset($errorsInRegister["name"]) ? $errorsInRegister["name"] : null; ?>
             </div>
-
 
             <!-- Usuario -->
             <input
@@ -200,6 +206,7 @@
 
             <!-- elegir imagen de perfil  -->
 
+
             <input
               class="login-file"
               type="file"
@@ -228,7 +235,7 @@
             <!-- confirmar password -->
 
             <input
-              class="login" <?= isset($errorsInRegister["rePassword"]) ? "showError" : null ?>"
+              class="login" <?= isset($errorsInRegister["rePassword"]) ? "showError" : null ?>
               type="password"
               name="rePassword"
               value="<?= $rePassword; ?>"
@@ -239,17 +246,24 @@
             </div>
 
 
+
+
             <button
               class="boton-regi"
               type="submit"
-              name="Registrarme">Registrarme
+              name="Registrarme">
+                Registrarme
             </button>
+
+
 
 
           </form>
 
 
+
         </article>
+
       </section>
 
 
@@ -259,6 +273,8 @@
          ?>
 
       </footer>
+
+
 
 
 

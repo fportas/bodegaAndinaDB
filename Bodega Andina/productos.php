@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <?php require_once 'form-master-controller.php';
-require_once 'conexion.php'; 
+require_once 'conexion.php';
 
 
 
@@ -27,10 +27,14 @@ require_once 'conexion.php';
           require_once("partials/nav-bar.php");
            ?>
     </header>
+    <div class="titulo-productos">
+      <h2>Nuestros Productos</h2>
+    </div>
 
     <div class="container-productos">
       <div class="preguntas-body">
-        <h2>Nuestros Productos</h2>
+
+
 
        <div class="preguntas-pedido ventanaProducto">
          <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
@@ -39,40 +43,79 @@ require_once 'conexion.php';
          <p class="precio">$780</p>
        </div>
 
-       <div class="preguntas-cambios">
-         <h3>Cambios sobre mi pedido</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-           ut labore et dolore magna aliqua.</p>
+       <div class="preguntas-pedido ventanaProducto">
+         <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+         <h3>Vino ....</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur</p>
+         <p class="precio">$630</p>
        </div>
 
-       <div class="preguntas-pagos">
-         <h3>Medios de pagos, precios y beneficios</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-           ut labore et dolore magna aliqua.</p>
+       <div class="preguntas-pedido ventanaProducto">
+         <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+         <h3>Vino ....</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur</p>
+         <p class="precio">$723</p>
        </div>
+
+       <div class="preguntas-pedido ventanaProducto">
+         <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+         <h3>Vino ....</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur</p>
+         <p class="precio">$723</p>
        </div>
+
+
+      </div>
 
       <div class="preguntas-body2">
-           <div class="preguntas-devolucion">
-             <h3>Facturación, devolución y dudas de cobro</h3>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-               ut labore et dolore magna aliqua.</p>
-           </div>
+        <div class="preguntas-pedido ventanaProducto">
+          <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+          <h3>Vino ....</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur</p>
+          <p class="precio">$540</p>
+        </div>
 
-           <div class="preguntas-inconvenientes">
-             <h3>Inconvenientes en el destino</h3>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-               ut labore et dolore magna aliqua.</p>
-           </div>
+        <div class="preguntas-pedido ventanaProducto">
+          <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+          <h3>Vino ....</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur</p>
+          <p class="precio">$230</p>
+        </div>
 
-           <div class="preguntas-cuenta">
-             <h3>Dudas sobre mi cuenta</h3>
-             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-               ut labore et dolore magna aliqua.</p>
-           </div>
+        <div class="preguntas-pedido ventanaProducto">
+          <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+          <h3>Vino ....</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur</p>
+          <p class="precio">$180</p>
+        </div>
+
+        <div class="preguntas-pedido ventanaProducto">
+          <img src="images/mockup-botella.png" alt="Imagen de botella de vino" class="botella">
+          <h3>Vino ....</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur</p>
+          <p class="precio">$180</p>
+        </div>
       </div> <!-- cierro preguntas body -->
 
     </div>
+
+    <!-- Footer -->
+
+    <?php
+      require_once("partials/footerIndex.php");
+    ?>
+
+
+
+    <!-- Evento para desplegar menu  -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $('.toggle-nav').click(function (e) {
+      e.preventDefault();
+      $('.main-nav').slideToggle('fast');
+      });
+    </script>
 
 
 

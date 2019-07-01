@@ -46,7 +46,7 @@
   <link rel="stylesheet" href="css/stylesf.css">
   <link rel="stylesheet" href="css/login.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inicia Secion</title>
+  <title>Inicia Sesion</title>
 
 </head>
 

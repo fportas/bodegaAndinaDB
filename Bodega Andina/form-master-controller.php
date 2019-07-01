@@ -8,6 +8,7 @@
 	define('IMAGE_PATH', dirname(__FILE__) . '/data/avatars/');
 	define('USERS_JSON_PATH', dirname(__FILE__) . '/data/users.json');
 
+  // Preguntar bien sobre esta función, ya que niega el logueado
 
   if ( isset($_COOKIE['userLoged']) && !isLogged() ) {
 		// Busco al usuario por el email que tengo almacenado en la cookie
@@ -80,7 +81,7 @@
     }
 
 
-    // Validacion de passworld
+    // Validacion de password
 
 
     if ( empty($password) ) {
@@ -153,13 +154,33 @@
   // }
 
 
-  // Trae todos los JSON
-  function getAllUsers() {
-    // primero el contenido del archivo
-    $fileContent = file_get_contents(USERS_JSON_PATH);
+  // Trae todos los JSON.  No funciona con la BD
+  // function getAllUsers() {
+  //   // primero el contenido del archivo
+  //   $fileContent = file_get_contents(USERS_JSON_PATH);
+  //
+  //   // lo transforma en un array asociativo
+  //   $allUsers = json_decode($fileContent, true);
+  //
+  //   // devuelve el array asociativo con todos los usuarios
+  //   return $allUsers;
+  // }
 
-    // lo transforma en un array asociativo
-    $allUsers = json_decode($fileContent, true);
+  // Trae a todos los usuarios de la BD
+  function getAllUsers() {
+
+    global $baseDeDatos;
+
+    try {
+    	$consulta = $baseDeDatos->query("SELECT * from registro"); //corre la consulta y me devuelve un resultado dentro de un objeto hijo pd
+
+    } catch(PDOException $error) {
+
+    	echo("Ocurrió un error con una consulta en la base de datos");
+    	die(); //lo mismo que exit()
+    }
+
+    $allUsers = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
     // devuelve el array asociativo con todos los usuarios
     return $allUsers;
@@ -170,7 +191,7 @@
 
 
 
-  // Función para guardar al usuario
+  // Función para guardar al usuario en JSON
   // function saveUser() {
   //   // Trimeamos los valores que vinieron por $_POST
   //   $_POST['name'] = trim($_POST['name']);
@@ -223,23 +244,14 @@
       $sql = "insert into registro (name, user, country, email, avatar, password) values (?, ?, ?, ?, ?, ?)";
       $consulta = $baseDeDatos->prepare($sql);
       $consulta->execute([$_POST['name'], $_POST['user'], $_POST['country'], $_POST['email'], $imgName, $_POST['password']]);
+      header('location: perfil-de-usuario.php');
+      // exit;
     } catch (PDOException $error) {
       echo ("LA RE CAGASTE");
 
     }
 
-
-
   }
-
-
-
-
-
-
-
-
-
 
   // Función para loguear al usuario
   /*
@@ -291,7 +303,6 @@
   function userExist($user) {
     // Traigo a todos los usuarios
     $allUsers = getAllUsers();
-
     // Recorro el array de usuarios
     foreach ($allUsers as $oneUser) {
       // Si la posición "usuario" del usuario en la iteración coincide con el usuario que pasé como parámetro
@@ -299,7 +310,6 @@
         return true;
       }
     }
-
     // Si termino de recorrer el array y no se encontró al usuario que pasé como parámetro
     return false;
   }
@@ -327,7 +337,7 @@
     if (empty($user)) {
         $errors["user"] = "El campo usuario es obligatorio";
     } elseif ( userExist($user) ) { // Si el usuario ya existe, es porque alguien ya se registró con el mismo
-  			$errors["user"] = "Ese usuario ya está registrado";
+        $errors["user"] = "Ese usuario ya está registrado";
     }
       $errors['email'] = 'El campo email es obligatorio';
     } elseif ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) { // Si el campo $email no es un email válido
@@ -336,9 +346,11 @@
       // $errors['email'] = 'Ese correo no está registrado en nuestra base de datos';
       $errors['email'] = 'Las credenciales no coinciden';
     } else {
-      // Si pasamos las 3 validaciones anteriores, busco y  obtengo al usuario con el email que llegó por $_POST
       $theUser = getUserByEmail($email);
-
+      // Si pasamos las 3 validaciones anteriores, busco y  obtengo al usuario con el email que llegó por $_POST
+      // echo "<pre>";
+      // var_dump($password);
+      // echo "</pre>";
       // Si el password que recibí por $_POST NO coincide con el password hasheado que está guardado en el usuario
       if ( !password_verify($password, $theUser['password']) ) {
         $errors['password'] = 'Las credenciales no coinciden';
@@ -353,21 +365,58 @@
     return $errors;
   }
 
-  // Función para traer a 1 usuario por email
-  /*
-    Recibe como parámetro el email que quiero buscar en usuarios
-  */
-  function getUserByEmail($email){
-    // Obtengo a todos los usuarios
-    $allUsers = getAllUsers();
 
-    // Recorro el array de usuarios
-    foreach ($allUsers as $oneUser) {
-      // Si la posición email del usuario de esa iteración es igual al email que me pasan por parámetro
-      if ($oneUser['email'] == $email) {
-        // Retorno al usuario encontrado
-        return $oneUser;
-      }
+    // Si está vacío el campo: $password
+    // if ( empty($password) ) {
+    //   $errors['password'] = 'El campo password es obligatorio';
+    //   // Si el password que recibí por $_POST NO coincide con el password hasheado que está guardado en el usuario
+    // }elseif ( !password_verify($password, $theUser['password']) ) {
+    //     $errors['password'] = 'Las credenciales no coinciden';
+    //   }
+    //
+    // // Retorno el array de errores con los mensajes de error
+    // return $errors;
+  // }
+
+  // Función para traer a 1 usuario por email con JSON
+  // function getUserByEmail($email){
+  //   // Obtengo a todos los usuarios
+  //   $allUsers = getAllUsers();
+  //
+  //   // Recorro el array de usuarios
+  //   foreach ($allUsers as $oneUser) {
+  //     // Si la posición email del usuario de esa iteración es igual al email que me pasan por parámetro
+  //     if ($oneUser['email'] == $email) {
+  //       // Retorno al usuario encontrado
+  //       return $oneUser;
+  //     }
+  //   }
+  // }
+
+
+  // getUserByEmail para BD
+  function getUserByEmail($email){
+
+    global $baseDeDatos;
+
+    try {
+      $consulta = $baseDeDatos->prepare("SELECT * FROM registro WHERE email = ?");
+      $consulta->execute([$email]);
+    } catch(PDOException $error) {
+      die('Error de base de datos');
     }
+    $theUser = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    return $theUser['0'];
+
   }
+
+
+
+  //
+  // echo "<pre>";
+  // var_dump(getUserByEmail('onnig@gmail.com'));
+  // echo "</pre>";
+
+
+
  ?>

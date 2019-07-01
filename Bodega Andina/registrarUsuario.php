@@ -1,6 +1,7 @@
 <?php
   require_once 'conexion.php';
   require_once 'register.php';
+  require_once 'form-master-controller.php';
 
   $name = $_POST['name'];
   $user = $_POST['user'];
@@ -12,7 +13,7 @@
 
 
   try {
-  	$consulta = $base->prepare("INSERT INTO registro (name, user, country, email, avatar, password) values (?, ?, ?, ?, ?, ?)");
+  	$consulta = $baseDeDatos->prepare("INSERT INTO registro (name, user, country, email, avatar, password) values (?, ?, ?, ?, ?, ?)");
 
   	//con bind value
   	// $consulta->bindValue(1, $titulo, PDO::PARAM_STR);
@@ -21,6 +22,8 @@
 
   	//con execute cortito
   	$consulta->execute([$name, $user, $country, $email, $avatar, $password]);
+    header('Location: perfil-de-usuario.php');
+
 
   } catch(PDOException $error) {
 
@@ -28,7 +31,6 @@
   	die();
   }
 
-  header('Location: perfil-de-usuario.php');
 
 
 

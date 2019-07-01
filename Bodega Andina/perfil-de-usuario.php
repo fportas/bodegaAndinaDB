@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
-<?php require_once 'form-master-controller.php'; ?>
 <?php
-  if ( !isLogged() ) {
-    header('location: login.php');
-    exit;
-  }
+  require_once 'form-master-controller.php';
+  require_once 'conexion.php';
+  //
+  // if ( !isLogged() ) {
+  //   header('location: login.php');
+  //   exit;
+  // }
   $theUser = $_SESSION['userLoged'];
+
+  // echo "<pre>";
+  // var_dump($theUser["avatar"]);
+  // echo "</pre>";
 
 ?>
 
@@ -53,7 +59,7 @@
 
 <div class="titulo">
   <h1>Bienvenid@ <?= $theUser["name"]; ?></h1>
-  <img src="data/avatars/<?= $theUser['avatar']; ?>" class="avatar" alt="">
+  <img src="data/avatars/<?= $theUser['avatar']=null ? "default.jpg" : $theUser['avatar']; ?>" class="avatar" alt="">
 
 </div>
 
@@ -76,6 +82,8 @@
     <h4>Shop online</h4>
   </div>
 </div>
+
+
 
 <footer>
 <div class="contacto">

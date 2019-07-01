@@ -31,13 +31,13 @@
 
     $dsn = "mysql:dbname=bodegaAndina;host=127.0.0.1;port=3306";
     $usuario = "root";
-    $pass = "root";
+    $pass = "";
 
     $baseDeDatos = new PDO($dsn, $usuario, $pass);
 
     //con execute cortito
 
-    echo ("estoy conectado logi");
+    // echo ("estoy conectado logi");
 
 
   } catch(PDOException $error) {

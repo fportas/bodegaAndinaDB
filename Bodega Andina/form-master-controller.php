@@ -18,6 +18,7 @@
 		$_SESSION['userLoged'] = $theUser;
 	}
 
+
   // try {
   //   $consulta = $baseDeDatos->query("SELECT * from registro");
   //   $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -244,13 +245,31 @@
       $sql = "insert into registro (name, user, country, email, avatar, password) values (?, ?, ?, ?, ?, ?)";
       $consulta = $baseDeDatos->prepare($sql);
       $consulta->execute([$_POST['name'], $_POST['user'], $_POST['country'], $_POST['email'], $imgName, $_POST['password']]);
-      header('location: perfil-de-usuario.php');
+      $userId = $baseDeDatos->lastInsertId();
       // exit;
     } catch (PDOException $error) {
       echo ("LA RE CAGASTE");
 
     }
 
+    // return Falta el return con el usuario registrado.
+    return $userId;
+
+  }
+
+  function getUserById($userId){
+
+    global $baseDeDatos;
+
+    try {
+      $consulta = $baseDeDatos->prepare("SELECT * FROM registro WHERE id = ?");
+      $consulta->execute([$userId]);
+    } catch(PDOException $error) {
+      die('Error de base de datos');
+    }
+    $theUser = $consulta->fetch(PDO::FETCH_ASSOC);
+    // traia todos porue estaba el fetch all, si le pongo así trae uno solo.
+    return $theUser;
   }
 
   // Función para loguear al usuario
@@ -393,6 +412,8 @@
   //   }
   // }
 
+  // funcion que trae
+
 
   // getUserByEmail para BD
   function getUserByEmail($email){
@@ -405,8 +426,9 @@
     } catch(PDOException $error) {
       die('Error de base de datos');
     }
-    $theUser = $consulta->fetchAll(PDO::FETCH_ASSOC);
-    return $theUser['0'];
+    $theUser = $consulta->fetch(PDO::FETCH_ASSOC);
+    // traia todos porue estaba el fetch all, si le pongo así trae uno solo.
+    return $theUser;
 
   }
 

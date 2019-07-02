@@ -61,7 +61,11 @@
 
 			// Guardo al usuario en el archivo JSON, y me devuelve al usuario que guardó en array
 			// $theUser = saveUser(); este se reemplaza
-      $theUser = saveUserBD();
+      $userId = saveUserBD();
+
+      // traigo al usuario por
+
+      $theUser = getUserById($userId);
 
 			// Al momento en que se registar vamos a mantener la sesión abierta
 			setcookie('userLoged', $theUser['email'], time() + 143000);

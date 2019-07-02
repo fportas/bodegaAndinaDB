@@ -4,14 +4,14 @@
   require_once 'form-master-controller.php';
   require_once 'conexion.php';
   //
-  // if ( !isLogged() ) {
-  //   header('location: login.php');
-  //   exit;
-  // }
+  if ( !isLogged() ) {
+    header('location: login.php');
+    exit;
+  }
   $theUser = $_SESSION['userLoged'];
 
   // echo "<pre>";
-  // var_dump($theUser["avatar"]);
+  // var_dump($_SESSION['userLoged']);
   // echo "</pre>";
 
 ?>

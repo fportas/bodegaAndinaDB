@@ -135,14 +135,9 @@
               name="ingresar">Ingresar
             </button>
 
-            <button
-              class="boton-regi"
-              type="submit"
-              name="Registrarme">
-              <a class="boton" href="register.php">
-                Registrarme
-              </a>
-            </button>
+            <a class="boton-regi" href="register.php">
+              Registrarme
+            </a>
           </form>
         </article>
       </section>

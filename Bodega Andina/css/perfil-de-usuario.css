@@ -27,6 +27,18 @@ position: relative;
   z-index: -1;
 }
 
+.logo-perfil img {
+ width: 65%;
+}
+
+.nav-bar-perfil-de-usuario {
+  display: flex;
+}
+
+.log-out {
+  width: 40%;
+}
+
 .logo img {
  width: 30%;
 }
@@ -70,10 +82,9 @@ nav {
   margin-top: 30px;
   margin-bottom: 50px;
   display: flex;
-flex-wrap: wrap;
-text-align: center;
-justify-content: center;
-
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
 }
 
 .servicios{
@@ -87,10 +98,10 @@ justify-content: center;
 
 
 footer {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
   display: flex;
   background: rgba(243,226,199,1);
   background: -moz-linear-gradient(top, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 13%, rgba(233,212,179,1) 73%, rgba(233,212,179,1) 100%);
@@ -120,22 +131,24 @@ text-align: center;
     font-size: 14px;
   }
 
-.compras h5 {
-  font-size: 14px;
-}
+  .compras h5 {
+    font-size: 14px;
+  }
 }
 
  @media (max-width: 450px) {
 
-   footer {
-     display: block;
-        }
+  footer {
+   display: block;
+  }
 
   .contacto {
     border-bottom: 1px solid black;
     border-right: none;
+  }
 
-
+  nav {
+  flex-direction: column;
   }
 
   .container {
@@ -150,9 +163,12 @@ text-align: center;
 
  }
 
-
- .logo img {
-
-  width: 65%;
+ nav {
+   flex-direction:column;
  }
+
+
+  .logo img {
+    width: 65%;
+  }
 }
